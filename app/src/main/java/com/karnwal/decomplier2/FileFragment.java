@@ -20,10 +20,9 @@ import com.google.mlkit.vision.common.InputImage;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import kotlin.Metadata;
+
 import kotlin.jvm.internal.Intrinsics;
 
-@Metadata(d1 = {"\u0000F\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\u0018\u00002\u00020\u0001B\u0005¢\u0006\u0002\u0010\u0002J\"\u0010\b\u001a\u00020\t2\u0006\u0010\n\u001a\u00020\u000b2\u0006\u0010\f\u001a\u00020\u000b2\b\u0010\r\u001a\u0004\u0018\u00010\u000eH\u0016J&\u0010\u000f\u001a\u0004\u0018\u00010\u00102\u0006\u0010\u0011\u001a\u00020\u00122\b\u0010\u0013\u001a\u0004\u0018\u00010\u00142\b\u0010\u0015\u001a\u0004\u0018\u00010\u0016H\u0016R\u000e\u0010\u0003\u001a\u00020\u0004X.¢\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0006X.¢\u0006\u0002\n\u0000R\u000e\u0010\u0007\u001a\u00020\u0006X.¢\u0006\u0002\n\u0000¨\u0006\u0017"}, d2 = {"Lcom/karnwal/qrcode2/FileFragment;", "Landroidx/fragment/app/Fragment;", "()V", "fileButton", "Landroid/widget/Button;", "formattedText", "Landroid/widget/TextView;", "rawText", "onActivityResult", "", "requestCode", "", "resultCode", "data", "Landroid/content/Intent;", "onCreateView", "Landroid/view/View;", "inflater", "Landroid/view/LayoutInflater;", "container", "Landroid/view/ViewGroup;", "savedInstanceState", "Landroid/os/Bundle;", "app_release"}, k = 1, mv = {1, 6, 0}, xi = 48)
 public final class FileFragment extends Fragment {
     private Button fileButton;
     private TextView formattedText;
@@ -38,16 +37,16 @@ public final class FileFragment extends Fragment {
         this.fileButton = inflate.findViewById(R.id.fileButton);
         View findViewById2 = inflate.findViewById(R.id.rawText);
         Intrinsics.checkNotNullExpressionValue(findViewById2, "view.findViewById(R.id.rawText)");
-        this.rawText = (TextView) findViewById2;
+        this.rawText = inflate.findViewById(R.id.rawText);
         View findViewById3 = inflate.findViewById(R.id.formattedText);
         Intrinsics.checkNotNullExpressionValue(findViewById3, "view.findViewById(R.id.formattedText)");
         this.formattedText = (TextView) findViewById3;
-        this.fileButton.setOnClickListener(new FileFragment$$ExternalSyntheticLambda0(this, intent));
+        this.fileButton.setOnClickListener(new FileFragmentButtonListener(this, intent));
         startActivityForResult(Intent.createChooser(intent, "Select a file"), 111);
         return inflate;
     }
 
-    public static final void m244onCreateView$lambda0(FileFragment fileFragment, Intent intent, View view) {
+    public static final void fileButtonListener(FileFragment fileFragment, Intent intent, View view) {
         Intrinsics.checkNotNullParameter(fileFragment, "this$0");
         Intrinsics.checkNotNullParameter(intent, "$intent");
         fileFragment.startActivityForResult(Intent.createChooser(intent, "Select a file"), 111);
@@ -79,11 +78,11 @@ public final class FileFragment extends Fragment {
             Intrinsics.checkNotNullExpressionValue(fromFilePath, "fromFilePath(activity!!, selected_file!!)");
             BarcodeScanner client = BarcodeScanning.getClient();
             Intrinsics.checkNotNullExpressionValue(client, "getClient()");
-            Intrinsics.checkNotNullExpressionValue(client.process(fromFilePath).addOnSuccessListener(new FileFragment$$ExternalSyntheticLambda2(this)).addOnFailureListener(new FileFragment$$ExternalSyntheticLambda1(this)), "scanner.process(image)\n ….show()\n                }");
+            Intrinsics.checkNotNullExpressionValue(client.process(fromFilePath).addOnSuccessListener(new FileFragmentOnSuccessListener(this)).addOnFailureListener(new FileFragmentOnFailureListener(this)), "scanner.process(image)\n ….show()\n                }");
         }
     }
 
-    public static final void m242onActivityResult$lambda1(FileFragment fileFragment, List list) {
+    public static final void decodeFile(FileFragment fileFragment, List list) {
         Intrinsics.checkNotNullParameter(fileFragment, "this$0");
         Iterator it = list.iterator();
         while (it.hasNext()) {
@@ -119,7 +118,7 @@ public final class FileFragment extends Fragment {
         }
     }
 
-    public static final void m243onActivityResult$lambda2(FileFragment fileFragment, Exception exc) {
+    public static final void resultOfFile(FileFragment fileFragment, Exception exc) {
         Intrinsics.checkNotNullParameter(fileFragment, "this$0");
         Intrinsics.checkNotNullParameter(exc, "it");
         FragmentActivity activity = fileFragment.getActivity();
