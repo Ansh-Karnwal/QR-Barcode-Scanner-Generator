@@ -4,15 +4,15 @@ import android.widget.TextView;
 import com.google.zxing.Result;
 
 public final class ScanFragmentRun implements Runnable {
-    public final TextView f$0;
-    public final Result f$1;
+    public final TextView textView;
+    public final Result result;
 
     public ScanFragmentRun(TextView textView, Result result) {
-        this.f$0 = textView;
-        this.f$1 = result;
+        this.textView = textView;
+        this.result = result;
     }
 
     public final void run() {
-        ScanFragment.addText(this.f$0, this.f$1);
+        ScanFragment.addText(this.textView, this.result);
     }
 }
