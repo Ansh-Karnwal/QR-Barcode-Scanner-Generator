@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="barcodeArray">
+        <item>Code 128</item>
+        <item>Code 39</item>
+        <item>Code 93</item>
+        <item>EAN 13</item>
+        <item>EAN 8</item>
+        <item>ITF</item>
+        <item>UPC A</item>
+        <item>UPC E</item>
+        <item>CODABAR</item>
+    </array>
+</resources>
